@@ -48,10 +48,12 @@ console.log(todoList)
 .todo-list {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  // margin-top: 20px;
   padding: 15px 20px;
-  background: #f7f7f7;
+  background: rgba(#202020, 0.7);
   border-radius: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .no-todos {

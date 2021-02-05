@@ -24,18 +24,27 @@ body {
   // background: #eeeeee;
   // background-image: linear-gradient(-45deg, #84fab0, #8fd3f4);
   // background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background: linear-gradient(-45deg, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-	animation: gradient 5s ease infinite;
+  background: rgba(#222, 0.8);
 }
 
 body {
-  min-height: calc(100vh - 20px);
-}
+  padding-top: 20px;
+  min-height: 100vh;
+  color: #eee;
 
-.viewport {
-  // background: #eeeeee;
-  // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  &::before {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120%;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    // background: linear-gradient(-45deg, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+  }
 }
 
 .global-container {
