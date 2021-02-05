@@ -1,5 +1,6 @@
 <template>
   <div class="todo-list">
+    <new-task />
     <div v-show="todoList.length < 1" class="todo-list__no-todos no-todos">
       Please add your first task...
     </div>
@@ -12,6 +13,7 @@
 </template>
 
 <script setup>
+import NewTask from './NewTask.vue'
 import { defineProps, reactive } from 'vue'
 
 defineProps({
@@ -45,7 +47,7 @@ console.log(todoList)
 <style lang="scss" scoped>
 .todo-list {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-top: 20px;
   padding: 15px 20px;
   background: #f7f7f7;
