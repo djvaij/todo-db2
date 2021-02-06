@@ -4,7 +4,7 @@
       v-model="taskText"
       type="text"
       class="new-task__input"
-      placeholder="Запишіть ваше завдання тут..."
+      placeholder="Type your task here..."
       @keypress.enter="addNewTask"
     >
     <button class="new-task__add-btn" @click="addNewTask">+</button>

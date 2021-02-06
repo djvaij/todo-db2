@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <input type="text" class="header__input" placeholder="Пошук..." v-model="typeText">
+    <input type="text" class="header__input" placeholder="Search..." v-model="typeText">
     <button id="filter-btn" class="header__button" @click="openFillters"></button>
     <Filters
       v-show="isFiltersShow"

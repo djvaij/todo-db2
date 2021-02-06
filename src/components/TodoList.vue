@@ -41,10 +41,18 @@ let counter = 0
 let filteredList = ref([...todosList])
 
 watch(props.search, (first, second) => {
-  filteredList.value = [...todosList].filter((el) => {
-    console.log(el.title.includes(search.searchText), search.searchText)
-    return el.title.includes(search.searchText)
-  })
+  if (filters.status === filtersConst.DONE) {
+    filteredList.value = [...todosList]
+      .filter((el) => el.isCompleted)
+      .filter((el) => el.title.includes(search.searchText))
+  }
+  else if (filters.status === filtersConst.UNDONE) {
+    filteredList.value = [...todosList]
+      .filter((el) => !el.isCompleted)
+      .filter((el) => el.title.includes(search.searchText))
+  } else {
+    filteredList.value = [...todosList].filter((el) => el.title.includes(search.searchText))
+  }
 })
 
 watch(props.filters, (first, second) => {
