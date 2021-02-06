@@ -95,14 +95,17 @@ const initialArray = [
   },
 ]
 
+const defaultFilters = {
+  status: filtersConst.ALL,
+  order: filtersConst.DESC,
+}
+
 let todosFromLocalStorage = loadFromLocalStorage('todosList') || initialArray
+let filtersFromLocalStorage = loadFromLocalStorage('filters') || defaultFilters
 
 let { todosList, filters } = reactive({
   todosList: [...todosFromLocalStorage],
-  filters: {
-    status: filtersConst.ALL,
-    order: filtersConst.DESC,
-  },
+  filters: filtersFromLocalStorage,
 })
 
 let search = reactive({
@@ -110,6 +113,7 @@ let search = reactive({
 })
 
 saveToLocalStorage('todosList', todosList)
+saveToLocalStorage('filters', filters)
 
 function uuidv4() {
   return 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -121,6 +125,7 @@ function uuidv4() {
 const updateOrder = (order) => {
   filters.order = order
   sortBy(order)
+  saveToLocalStorage('filters', filters)
 }
 
 const sortBy = (order) => {
@@ -146,6 +151,7 @@ const sortBy = (order) => {
 }
 
 sortBy(filters.order)
+saveToLocalStorage('filters', filters)
 
 const addTask = (text) => {
   let newTaks = {
@@ -180,6 +186,7 @@ const changeStatusFilter = (status) => {
     el.show = false
   })
   filters.status = status
+  saveToLocalStorage('filters', filters)
 }
 
 const toggleComplete = (id) => {
