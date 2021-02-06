@@ -6,6 +6,7 @@
         :filtersConst="filtersConst"
         :updateOrder="updateOrder"
         :changeStatusFilter="changeStatusFilter"
+        :searchUpdate="searchUpdate"
       />
       <TodoList
         :todosList="todosList"
@@ -14,6 +15,7 @@
         :filters="filters"
         :filtersConst="filtersConst"
         :toggleComplete="toggleComplete"
+        :search="search"
       />
     </div>
   </div>
@@ -23,7 +25,7 @@
 import Header from './components/Header.vue'
 import TodoList from './components/TodoList.vue'
 
-import { defineProps, reactive, computed, ref } from 'vue'
+import { defineProps, reactive, ref } from 'vue'
 
 defineProps({
   msg: String
@@ -101,6 +103,10 @@ let { todosList, filters } = reactive({
     status: filtersConst.ALL,
     order: filtersConst.DESC,
   },
+})
+
+let search = reactive({
+  searchText: ''
 })
 
 saveToLocalStorage('todosList', todosList)
@@ -183,6 +189,10 @@ const toggleComplete = (id) => {
     }
   })
   saveToLocalStorage('todosList', todosList)
+}
+
+const searchUpdate = (text) => {
+  search.searchText = text
 }
 
 </script>

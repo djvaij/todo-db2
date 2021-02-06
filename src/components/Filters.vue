@@ -109,6 +109,19 @@ const localSort = (order) => {
   font-size: 16px;
 }
 
+.filter-item {
+  margin-bottom: 4px;
+  cursor: pointer;
+
+  * {
+    cursor: pointer;
+  }
+
+  &:hover {
+    color: #42b983;
+  }
+}
+
 hr {
   width: 100%;
 }

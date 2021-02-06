@@ -31,13 +31,21 @@ const props = defineProps({
   filters: Object,
   filtersConst: Object,
   toggleComplete: Function,
+  search: Object
 })
 
-let { todosList, filters, filtersConst } = props
+let { todosList, filters, filtersConst, search } = props
 
 let counter = 0
 
 let filteredList = ref([...todosList])
+
+watch(props.search, (first, second) => {
+  filteredList.value = [...todosList].filter((el) => {
+    console.log(el.title.includes(search.searchText), search.searchText)
+    return el.title.includes(search.searchText)
+  })
+})
 
 watch(props.filters, (first, second) => {
   counter = 0

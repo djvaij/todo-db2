@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <input type="text" class="header__input" placeholder="Пошук...">
+    <input type="text" class="header__input" placeholder="Пошук..." v-model="typeText">
     <button id="filter-btn" class="header__button" @click="openFillters"></button>
     <Filters
       v-show="isFiltersShow"
@@ -14,17 +14,25 @@
 
 <script setup>
 import Filters from './Filters.vue'
-import { defineProps, reactive, ref } from 'vue'
+import { defineProps, reactive, ref, watch } from 'vue'
 
-defineProps({
+let { searchUpdate } = defineProps({
   msg: String,
   filters: Object,
   filtersConst: Object,
   updateOrder: Function,
   changeStatusFilter: Function,
+  searchUpdate: Function,
 })
 
 let state = reactive({ count: 0 })
+
+let typeText = ref('')
+
+watch(typeText, (first, second) => {
+  searchUpdate(typeText)
+  // console.log(typeText.value);
+})
 
 let isFiltersShow = ref(false)
 
