@@ -40,7 +40,7 @@ let counter = 0
 
 let filteredList = ref([...todosList])
 
-watch(props.search, (first, second) => {
+function update() {
   if (filters.status === filtersConst.DONE) {
     filteredList.value = [...todosList]
       .filter((el) => el.isCompleted)
@@ -51,31 +51,24 @@ watch(props.search, (first, second) => {
       .filter((el) => !el.isCompleted)
       .filter((el) => el.title.includes(search.searchText))
   } else {
-    filteredList.value = [...todosList].filter((el) => el.title.includes(search.searchText))
+    filteredList.value = [...todosList]
+      .filter((el) => el.title.includes(search.searchText))
   }
+}
+
+watch(props.search, (first, second) => {
+  update()
 })
 
 watch(props.filters, (first, second) => {
   counter = 0
-  if (filters.status === filtersConst.DONE) {
-    filteredList.value = [...todosList].filter((el) => el.isCompleted)
-  } else if (filters.status === filtersConst.UNDONE) {
-    filteredList.value = [...todosList].filter((el) => !el.isCompleted)
-  } else {
-    filteredList.value = [...todosList]
-  }
+  update()
   showElements()
 })
 
 watch(props.todosList, (first, second) => {
   counter = 0
-  if (filters.status === filtersConst.DONE) {
-    filteredList.value = [...todosList].filter((el) => el.isCompleted)
-  } else if (filters.status === filtersConst.UNDONE) {
-    filteredList.value = [...todosList].filter((el) => !el.isCompleted)
-  } else {
-    filteredList.value = [...todosList]
-  }
+  update()
   showElements()
 })
 
