@@ -1,24 +1,51 @@
 <template>
   <header class="header">
     <input type="text" class="header__input" placeholder="Пошук...">
-    <button class="header__button"></button>
+    <button id="filter-btn" class="header__button" @click="openFillters"></button>
+    <Filters
+      v-show="isFiltersShow"
+      :filters="filters"
+      :filtersConst="filtersConst"
+      :updateOrder="updateOrder"
+      :changeStatusFilter="changeStatusFilter"
+    />
   </header>
 </template>
 
 <script setup>
-import { defineProps, reactive } from 'vue'
+import Filters from './Filters.vue'
+import { defineProps, reactive, ref } from 'vue'
 
 defineProps({
-  msg: String
+  msg: String,
+  filters: Object,
+  filtersConst: Object,
+  updateOrder: Function,
+  changeStatusFilter: Function,
 })
 
-const state = reactive({ count: 0 })
+let state = reactive({ count: 0 })
+
+let isFiltersShow = ref(false)
+
+const openFillters = (e) => {
+  e.stopPropagation()
+  isFiltersShow.value = !isFiltersShow.value
+}
+
+window.document.addEventListener("click", (e) => {
+  if (e.target.id !== 'filter-btn') {
+    isFiltersShow.value = false
+  }
+}, true)
+
 </script>
 
 <style scoped lang="scss">
 @import "../scss/_icons.scss";
 
 .header {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 30px 20px 80px;
@@ -52,6 +79,7 @@ const state = reactive({ count: 0 })
   }
 
   &__button {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,6 +109,10 @@ const state = reactive({ count: 0 })
       color: #42b983;
       box-shadow: inset 0 0 0px #42b983;
       animation: shadow 1s ease infinite;
+    }
+
+    &:focus {
+      outline: none;
     }
   }
 }

@@ -1,46 +1,81 @@
 <template>
   <div class="todo-list">
-    <new-task />
-    <div v-show="todoList.length < 1" class="todo-list__no-todos no-todos">
-      Please add your first task...
-    </div>
-    <div v-show="todoList.length > 0" class="todo-list__list">
-      <div class="task" v-for="item in todoList" :key="item.id">
-        {{ item.title }}
-      </div>
+    <NewTask :addTask="props.addTask"/>
+    <div class="todo-list__list">
+      <transition-group name="list" tag="div">
+        <Task
+          v-for="item in filteredList"
+          :key="item.id"
+          :title="item.title"
+          v-show="item.show"
+          :id="item.id"
+          :deleteTask="props.deleteTaks"
+          :priority="item.priority"
+          :isCompleted="item.isCompleted"
+          :toggleComplete="toggleComplete"
+        />
+      </transition-group>
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup="props, { emit }">
 import NewTask from './NewTask.vue'
-import { defineProps, reactive } from 'vue'
+import Task from './Task.vue'
+import { defineProps, reactive, watch, ref } from 'vue'
 
-defineProps({
-  todoList: Array,
-  msg: String,
+const props = defineProps({
+  todosList: Array,
+  addTask: Function,
+  deleteTaks: Function,
+  filters: Object,
+  filtersConst: Object,
+  toggleComplete: Function,
 })
 
-const state = reactive({
-  todoList: [],
-  msg: "",
+let { todosList, filters, filtersConst } = props
+
+let counter = 0
+
+let filteredList = ref([...todosList])
+
+watch(props.filters, (first, second) => {
+  counter = 0
+  if (filters.status === filtersConst.DONE) {
+    filteredList.value = [...todosList].filter((el) => el.isCompleted)
+  } else if (filters.status === filtersConst.UNDONE) {
+    filteredList.value = [...todosList].filter((el) => !el.isCompleted)
+  } else {
+    filteredList.value = [...todosList]
+  }
+  showElements()
 })
 
-let { todoList } = state
-
-todoList.push({
-  id: 1,
-  title: "First task",
-  complated: false,
+watch(props.todosList, (first, second) => {
+  counter = 0
+  if (filters.status === filtersConst.DONE) {
+    filteredList.value = [...todosList].filter((el) => el.isCompleted)
+  } else if (filters.status === filtersConst.UNDONE) {
+    filteredList.value = [...todosList].filter((el) => !el.isCompleted)
+  } else {
+    filteredList.value = [...todosList]
+  }
+  showElements()
 })
 
-todoList.push({
-  id: 2,
-  title: "Seccond task",
-  complated: false,
-})
+function showElements() {
+  if (counter < todosList.length) {
+    setTimeout(() => {
+      todosList[counter].show = true
+      counter++
+      showElements()
+    }, 100)
+  } else {
+    counter = 0
+  }
+}
 
-console.log(todoList)
+showElements()
 
 </script>
 
@@ -49,6 +84,7 @@ console.log(todoList)
   display: flex;
   flex-direction: column;
   // margin-top: 20px;
+  min-height: calc(100vh - 200px);
   padding: 15px 20px;
   background: rgba(#202020, 0.7);
   border-radius: 5px;
@@ -62,5 +98,16 @@ console.log(todoList)
   border-radius: 5px;
   font-size: 20px;
   color: #42b983;
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  // transform: scale(0.5);
+  margin-top: -60px;
+  transform: scale(0.5) translateY(60px);
+  // transform: translateY(30px);
 }
 </style>

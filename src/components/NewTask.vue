@@ -1,14 +1,38 @@
 <template>
   <div class="new-task">
-    <input type="text" class="new-task__input" placeholder="Запишіть ваше завдання тут...">
-    <button class="new-task__add-btn">+</button>
+    <input
+      v-model="taskText"
+      type="text"
+      class="new-task__input"
+      placeholder="Запишіть ваше завдання тут..."
+      @keypress.enter="addNewTask"
+    >
+    <button class="new-task__add-btn" @click="addNewTask">+</button>
   </div>
 </template>
+
+<script setup="props">
+import { defineProps, ref } from 'vue'
+
+const props = defineProps({
+  addTask: Function
+})
+
+let taskText = ref('')
+
+const addNewTask = () => {
+  if (taskText.value !== '') {
+    props.addTask(taskText.value)
+    taskText.value = ''
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .new-task {
   display: flex;
   align-items: center;
+  margin-bottom: 40px;
 
   &__input {
     width: 100%;
@@ -30,6 +54,12 @@
     &::placeholder {
       color: rgba(#acacac, 0.7);
     }
+  }
+
+  .new-task__input:focus ~ .new-task__add-btn {
+    color: #42b983;
+    box-shadow: inset 0 0 0px #42b983;
+    animation: shadow 1s ease infinite;
   }
 
   &__add-btn {
@@ -62,6 +92,10 @@
       color: #42b983;
       box-shadow: inset 0 0 0px #42b983;
       animation: shadow 1s ease infinite;
+    }
+
+    &:focus {
+      outline: none;
     }
   }
 }
