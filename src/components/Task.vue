@@ -117,6 +117,7 @@ const deleteTaksLocal = () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 25px;
     width: 25px;
     height: 25px;
     margin-left: auto;
