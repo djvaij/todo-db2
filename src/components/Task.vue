@@ -84,7 +84,6 @@ const deleteTaksLocal = () => {
     position: relative;
     top: 5px;
     left: 2px;
-    // display: none;
     opacity: 0;
     font-size: 20px;
     color: #42b983;
@@ -97,7 +96,6 @@ const deleteTaksLocal = () => {
   }
 
   &__checkbox:checked + &__pseudo-checkbox .pseudo-checkbox__icon {
-    // display: inline;
     top: -8px;
     left: 2px;
     opacity: 1;

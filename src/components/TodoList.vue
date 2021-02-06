@@ -44,15 +44,18 @@ function update() {
   if (filters.status === filtersConst.DONE) {
     filteredList.value = [...todosList]
       .filter((el) => el.isCompleted)
-      .filter((el) => el.title.includes(search.searchText))
+      .filter((el) =>
+        el.title.toLowerCase().includes(search.searchText.toLowerCase()))
   }
   else if (filters.status === filtersConst.UNDONE) {
     filteredList.value = [...todosList]
       .filter((el) => !el.isCompleted)
-      .filter((el) => el.title.includes(search.searchText))
+      .filter((el) =>
+        el.title.toLowerCase().includes(search.searchText.toLowerCase()))
   } else {
     filteredList.value = [...todosList]
-      .filter((el) => el.title.includes(search.searchText))
+      .filter((el) =>
+        el.title.toLowerCase().includes(search.searchText.toLowerCase()))
   }
 }
 
@@ -92,7 +95,6 @@ showElements()
 .todo-list {
   display: flex;
   flex-direction: column;
-  // margin-top: 20px;
   min-height: calc(100vh - 200px);
   padding: 15px 20px;
   background: rgba(#202020, 0.7);
@@ -112,11 +114,9 @@ showElements()
 .list-enter-active, .list-leave-active {
   transition: all 1s;
 }
-.list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+.list-enter, .list-leave-to {
   opacity: 0;
-  // transform: scale(0.5);
   margin-top: -60px;
   transform: scale(0.5) translateY(60px);
-  // transform: translateY(30px);
 }
 </style>

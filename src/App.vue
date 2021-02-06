@@ -57,7 +57,7 @@ function loadFromLocalStorage(key) {
   return JSON.parse(window.localStorage.getItem(key))
 }
 
-const initialArray = [
+const defaultDemoTasks = [
   {
     id: 123,
     title: 'Leave email adress',
@@ -98,7 +98,7 @@ const initialArray = [
     title: 'Wait for an answer',
     isCompleted: false,
     timestamp: Date.now() + 6,
-    priority: 3,
+    priority: 6,
   },
 ]
 
@@ -107,7 +107,7 @@ const defaultFilters = {
   order: filtersConst.DESC,
 }
 
-let todosFromLocalStorage = loadFromLocalStorage('todosList') || initialArray
+let todosFromLocalStorage = loadFromLocalStorage('todosList') || defaultDemoTasks
 let filtersFromLocalStorage = loadFromLocalStorage('filters') || defaultFilters
 
 let { todosList, filters } = reactive({
@@ -123,7 +123,7 @@ saveToLocalStorage('todosList', todosList)
 saveToLocalStorage('filters', filters)
 
 function uuidv4() {
-  return 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
@@ -154,7 +154,6 @@ const sortBy = (order) => {
       break
     }
   }
-  // console.log(`Sorted by: ${order}`);
 }
 
 sortBy(filters.order)
@@ -261,7 +260,4 @@ body {
 		background-position: 0% 50%;
 	}
 }
-
-// background-image: linear-gradient(-45deg, #84fab0, #8fd3f4);
-// background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 </style>

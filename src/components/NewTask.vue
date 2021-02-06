@@ -39,10 +39,8 @@ const addNewTask = () => {
     padding: 5px 15px;
     border: none;
     border-bottom: 1px solid rgba(#acacac, 0.7);
-    // border-radius: 3px;
     font-size: 16px;
     color: #42b983;
-    // background: #202020;
     background: transparent;
     
     &:focus {
@@ -71,8 +69,6 @@ const addNewTask = () => {
     height: 32px;
     margin-left: 25px;
     padding: 10px 15px;
-    // border: none;
-    // border: 1px solid #acacac;
     border: none;
     border-radius: 3px;
     color: #acacac;
@@ -80,15 +76,12 @@ const addNewTask = () => {
     font-weight: bold;
     transition: all 0.3s;
     background-color: transparent;
-    // background-image: url($settings-icon);
     background-size: 24px;
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
 
     &:hover {
-      // background-image: url($settings-icon-hover);
-      // border: 1px solid #42b983;
       color: #42b983;
       box-shadow: inset 0 0 0px #42b983;
       animation: shadow 1s ease infinite;
