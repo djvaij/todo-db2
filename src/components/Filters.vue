@@ -101,7 +101,7 @@ const localSort = (order) => {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 150px;
+  width: 170px;
   padding: 10px 20px;
   border: 1px solid rgba(#acacac, 0.7);
   border-radius: 5px;
